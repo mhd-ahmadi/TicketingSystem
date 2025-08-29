@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a backend Web API for an offline ticketing system used by an organization to handle internal support requests. It is built with **.NET 9**, **Entity Framework Core**, and follows **Clean Architecture** principles. The API uses **FastEndpoints** for endpoint management and is fully role-based (Employee/Admin). All endpoints are protected using JWT authentication.
+This project is a backend Web API for an offline ticketing system used by an organization to handle internal support requests. It is built with **.NET 9**, **Entity Framework Core**, and follows **Clean Architecture** principles. The API uses **FastEndpoints** for endpoint management, **MediatR** for CQRS and request/response handling, and is fully role-based (Employee/Admin). All endpoints are protected using JWT authentication.
 
 ---
 
@@ -15,6 +15,7 @@ This project is a backend Web API for an offline ticketing system used by an org
 - **RESTful API:** Follows best practices
 - **Clean Architecture:** Separation of Domain, Application, Infrastructure, and API layers
 - **FastEndpoints:** Modern, performant endpoint framework
+- **MediatR:** Used for CQRS, decoupling request handling and business logic
 
 ---
 
@@ -47,6 +48,32 @@ This project is a backend Web API for an offline ticketing system used by an org
 
 - `DELETE /tickets/{id}`  
   Delete a ticket (Admin only)
+
+---
+
+## Ticket Creation Example
+
+The request model for creating a ticket is:
+
+```csharp
+public class CreateTicketRequest
+{
+    public const string Route = "tickets";
+
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+    public short? PriorityId { get; set; }
+}
+```
+
+**Example Request:**
+
+```sh
+curl -X POST https://localhost:7073/tickets \
+  -H "Authorization: Bearer {JWT_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Printer Issue","description":"Printer not working","priorityId":3}'
+```
 
 ---
 
@@ -92,28 +119,7 @@ You can use these credentials for login and testing.
 - Only Admins can assign tickets and update their status.
 - Employees can only view and manage their own tickets.
 - SQLite is used for simplicity and local development.
-- The project uses Clean Architecture and FastEndpoints for scalability and maintainability.
-
----
-
-## Example Requests
-
-### Login
-
-```sh
-curl -X POST https://localhost:7073/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin@site.com","password":"Ad@123"}'
-```
-
-### Create Ticket (Employee)
-
-```sh
-curl -X POST https://localhost:7073/tickets \
-  -H "Authorization: Bearer {JWT_TOKEN}" \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Printer Issue","description":"Printer not working","priority":"High"}'
-```
+- The project uses Clean Architecture, FastEndpoints, and MediatR for scalability and maintainability.
 
 ---
 
@@ -123,6 +129,7 @@ curl -X POST https://localhost:7073/tickets \
 - ASP.NET Core Web API
 - Entity Framework Core
 - FastEndpoints
+- MediatR
 - JWT Authentication
 - Clean Architecture
 
