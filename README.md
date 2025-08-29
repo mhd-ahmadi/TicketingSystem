@@ -1,14 +1,19 @@
-# Offline Ticketing System API for an Organization
-
-## Description
-
-This project is a backend Web API for an offline ticketing system used by an organization to handle internal support requests. It is built with **.NET 9**, **Entity Framework Core**, and follows **Clean Architecture** principles. The API uses **FastEndpoints** for endpoint management, **MediatR** for CQRS and request/response handling, and is fully role-based (Employee/Admin). All endpoints are protected using JWT authentication.
+# 🚀 Offline Ticketing System API for an Organization
 
 ---
 
-## Features
+## 📝 Description
 
-- **User Roles:** Employee and Admin
+This project is a backend Web API for an offline ticketing system used by an organization to handle internal support requests.  
+It is built with **.NET 9**, **Entity Framework Core**, and follows **Clean Architecture** principles.  
+The API uses **FastEndpoints** for endpoint management, **MediatR** for CQRS and request/response handling, and is fully role-based (Employee/Admin).  
+All endpoints are protected using **JWT authentication**.
+
+---
+
+## 🌟 Features
+
+- **User Roles:** `Employee` and `Admin`
 - **Authentication:** JWT-based login (`POST /auth/login`)
 - **Ticket Management:** Create, view, update, assign, and delete tickets
 - **Statistics:** Get ticket counts by status
@@ -19,39 +24,39 @@ This project is a backend Web API for an offline ticketing system used by an org
 
 ---
 
-## API Endpoints
+## 📚 API Endpoints
 
-### Authentication
+### 🔐 Authentication
 
 - `POST /auth/login`  
   Authenticate with email and password, receive JWT token.
 
-### Tickets
+### 🎫 Tickets
 
 - `POST /tickets`  
-  Create a new ticket (Employee only)
+  Create a new ticket (**Employee only**)
 
 - `GET /tickets/my`  
-  List tickets created by the current user (Employee)
+  List tickets created by the current user (**Employee**)
 
 - `GET /tickets`  
-  List all tickets (Admin only)
+  List all tickets (**Admin only**)
 
 - `PUT /tickets/{id}`  
-  Update ticket status and assignment (Admin only)
+  Update ticket status and assignment (**Admin only**)
 
 - `GET /tickets/stats`  
-  Show ticket counts by status (Admin only)
+  Show ticket counts by status (**Admin only**)
 
 - `GET /tickets/{id}`  
-  Get a specific ticket’s details (allowed to creator and assigned admin)
+  Get a specific ticket’s details (**allowed to creator and assigned admin**)
 
 - `DELETE /tickets/{id}`  
-  Delete a ticket (Admin only)
+  Delete a ticket (**Admin only**)
 
 ---
 
-## Ticket Creation Example
+## 📝 Ticket Creation Example
 
 The request model for creating a ticket is:
 
@@ -77,7 +82,9 @@ curl -X POST https://localhost:7073/tickets \
 
 ---
 
-## How to Run the Project
+## 🛠️ How to Run the Project
+
+### ▶️ Run Locally
 
 1. **Prerequisites:**  
    - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
@@ -89,14 +96,38 @@ curl -X POST https://localhost:7073/tickets \
    dotnet build
    dotnet run --project src/TicketingSystem.WebApi
    ```
-   The API will be available at `https://localhost:7073` or `http://localhost:5031`.
+   The API will be available at:  
+   `https://localhost:7073`  
+   `http://localhost:5031`
 
 3. **API Documentation:**  
-   Swagger UI is available at `/swagger` for interactive API testing.
+   Swagger UI is available at [`/swagger`](https://localhost:7073/swagger) for interactive API testing.
 
 ---
 
-## Seeding the Database
+### 🐳 Run with Docker
+
+1. **Build Docker Image:**
+   ```sh
+   docker build -t ticketing-system-api .
+   ```
+
+2. **Run Docker Container:**
+   ```sh
+   docker run -p 7073:7073 ticketing-system-api
+   ```
+
+3. The API will be available at:  
+   `http://localhost:7073`  
+   `https://localhost:7073`
+
+> **Note:**  
+> The SQLite database file will be created inside the container.  
+> You can mount a volume for persistence if needed.
+
+---
+
+## 🌱 Seeding the Database
 
 On first run, the database is seeded with:
 
@@ -112,7 +143,7 @@ You can use these credentials for login and testing.
 
 ---
 
-## Assumptions & Decisions
+## ⚡ Assumptions & Decisions
 
 - Passwords are securely hashed.
 - JWT secret and database connection string are configured in `appsettings.json`.
@@ -123,15 +154,15 @@ You can use these credentials for login and testing.
 
 ---
 
-## Technologies Used
+## 🧩 Technologies Used
 
-- .NET 9
-- ASP.NET Core Web API
-- Entity Framework Core
-- FastEndpoints
-- MediatR
-- JWT Authentication
-- Clean Architecture
+- `.NET 9`
+- `ASP.NET Core Web API`
+- `Entity Framework Core`
+- `FastEndpoints`
+- `MediatR`
+- `JWT Authentication`
+- `Clean Architecture`
 
 ---
 
